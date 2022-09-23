@@ -18,13 +18,19 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 // Axis helper
-const axesHelper = new THREE.AxesHelper()
-scene.add(axesHelper)
+// const axesHelper = new THREE.AxesHelper()
+// scene.add(axesHelper)
 
 /**
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
+const chromeMatcapTexture = textureLoader.load('/textures/matcaps/3.png')
+const matcapTextureDonut = textureLoader.load('/textures/matcaps/8.png')
+const matcapTextureToon = textureLoader.load('/textures/matcaps/7.png')
+const matcapTextureGore = textureLoader.load('/textures/matcaps/5.png')
+const matcapTexture = textureLoader.load('/textures/matcaps/5.png')
+
 
 /**
  * Fonts
@@ -34,14 +40,18 @@ const fonts = {
     helReg: './fonts/helvetiker_regular.typeface.json',
     genReg: './fonts/gentilis_regular.typeface.json',
     genBold: './fonts/gentilis_bold.typeface.json',
+    optReg: './fonts/optimer_regular.typeface.json',
+    optBold: './fonts/optimer_bold.typeface.json',
+    droidSerif: './fonts/droid/droid_serif_regular.typeface.json',
+    dosis: './fonts/dosis/Dosis_Regular.json'
 }
 const fontLoader = new FontLoader()
 
 fontLoader.load(
-    fonts.helReg,
+    fonts.dosis,
     (font) => {
         const textGeometry = new TextGeometry(
-            '0xJosiah',
+            '0xjosiah',
             {
                 font,
                 size: .5,
@@ -54,10 +64,42 @@ fontLoader.load(
                 bevelSegments: 4
             }
         )
-        const textMaterial = new THREE.MeshBasicMaterial()
-        textMaterial.wireframe = true
-        const text = new THREE.Mesh(textGeometry, textMaterial)
+        // textGeometry.computeBoundingBox()
+        // textGeometry.translate(
+        //     - (textGeometry.boundingBox.max.x - .02) * .5,
+        //     - (textGeometry.boundingBox.max.y - .02) * .5,
+        //     - (textGeometry.boundingBox.max.z - .03) * .5
+        // )
+        textGeometry.center()
+
+        const material = new THREE.MeshMatcapMaterial({ matcap: chromeMatcapTexture })
+        // material.wireframe = true
+        const text = new THREE.Mesh(textGeometry, material)
         scene.add(text)
+
+        console.time('donuts')
+
+        const donutGeometry = new THREE.TorusGeometry(.3, .2, 20, 45)
+        const donutMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
+
+        for(let i = 0; i < 500; i++) {
+            const donut = new THREE.Mesh(donutGeometry, donutMaterial)
+
+            donut.position.set(
+                (Math.random() - .5) * 15,
+                (Math.random() - .5) * 15,
+                (Math.random() - .5) * 15
+            )
+
+            donut.rotation.x = Math.random() * Math.PI
+
+            const randScale = Math.random()
+            donut.scale.set(randScale, randScale, randScale)
+
+            scene.add(donut)
+        }
+        console.timeEnd('donuts')
+
     }
 )
 
