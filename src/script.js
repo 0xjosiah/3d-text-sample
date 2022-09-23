@@ -30,6 +30,11 @@ const matcapTextureDonut = textureLoader.load('/textures/matcaps/8.png')
 const matcapTextureToon = textureLoader.load('/textures/matcaps/7.png')
 const matcapTextureGore = textureLoader.load('/textures/matcaps/5.png')
 const matcapTexture = textureLoader.load('/textures/matcaps/5.png')
+const textures = [matcapTextureDonut, matcapTextureGore]
+
+const getRandTexture = textures => {
+    return textures[Math.floor(Math.random() * 2)]
+}
 
 
 /**
@@ -77,13 +82,15 @@ fontLoader.load(
         const text = new THREE.Mesh(textGeometry, material)
         scene.add(text)
 
-        console.time('donuts')
-
         const donutGeometry = new THREE.TorusGeometry(.3, .2, 20, 45)
-        const donutMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
-
+        const octaGeometry = new THREE.OctahedronGeometry(.01, 0)
+        
         for(let i = 0; i < 500; i++) {
-            const donut = new THREE.Mesh(donutGeometry, donutMaterial)
+            const donutMaterial = new THREE.MeshMatcapMaterial({ 
+                // matcap: getRandTexture(textures)
+                matcap: chromeMatcapTexture
+            })
+            const donut = new THREE.Mesh(octaGeometry, donutMaterial)
 
             donut.position.set(
                 (Math.random() - .5) * 15,
@@ -98,8 +105,6 @@ fontLoader.load(
 
             scene.add(donut)
         }
-        console.timeEnd('donuts')
-
     }
 )
 
@@ -167,6 +172,10 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
+
+    // Rotate shapes
+    // donut.rotation.x = Math.random() * Math.PI
+
 
     // Update controls
     controls.update()
