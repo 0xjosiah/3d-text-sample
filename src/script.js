@@ -87,7 +87,7 @@ fontLoader.load(
         const donutGeometry = new THREE.TorusGeometry(.3, .2, 20, 45)
         const octaGeometry = new THREE.OctahedronGeometry(.01, 0)
         
-        for(let i = 0; i < 500; i++) {
+        for(let i = 0; i < 1000; i++) {
             const donutMaterial = new THREE.MeshMatcapMaterial({ 
                 // matcap: getRandTexture(textures)
                 matcap: chromeMatcapTexture
