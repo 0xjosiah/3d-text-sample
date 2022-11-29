@@ -140,7 +140,14 @@ const planetMaterial = new THREE.ShaderMaterial({
 
 // Mesh
 const planetMesh = new THREE.Mesh(planetGeometry, planetMaterial)
-scene.add(planetMesh)
+const planetMesh2 = new THREE.Mesh(planetGeometry, planetMaterial)
+planetMesh.position.x = -5
+planetMesh.position.y = .5
+planetMesh.position.z = -5
+planetMesh2.position.x = 2
+planetMesh2.position.y = .5
+planetMesh2.position.z = -4
+scene.add(planetMesh, planetMesh2)
 
 /**
  * Sizes
