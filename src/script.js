@@ -4,6 +4,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 import * as dat from 'lil-gui'
+import testFragmentShader from './shaders/planets/oneFragment.glsl'
+import testVertexShader from './shaders/planets/oneVertex.glsl'
 
 
 
@@ -141,7 +143,7 @@ const initPlanet = () => {
     const mesh = new THREE.Mesh(geometry, material)
     scene.add(mesh)
 }
-
+initPlanet()
 
 /**
  * Sizes
