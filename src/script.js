@@ -4,9 +4,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 import * as dat from 'lil-gui'
+import testVertexShader from './shaders/planets/oneVertex.glsl'
 import testFragmentShader from './shaders/planets/oneFragment.glsl'
 import testFragmentShader2 from './shaders/planets/twoFragment.glsl'
-import testVertexShader from './shaders/planets/oneVertex.glsl'
+import testFragmentShader3 from './shaders/planets/threeFragment.glsl'
+import testFragmentShader4 from './shaders/planets/fourFragment.glsl'
 
 
 
@@ -146,17 +148,35 @@ const planetMaterial2 = new THREE.ShaderMaterial({
         uTime: { value: 0 }
     }
 })
+const planetMaterial3 = new THREE.ShaderMaterial({
+    vertexShader: testVertexShader,
+    fragmentShader: testFragmentShader3,
+    side: THREE.DoubleSide,
+    uniforms: {
+        uTime: { value: 0 }
+    }
+})
+const planetMaterial4 = new THREE.ShaderMaterial({
+    vertexShader: testVertexShader,
+    fragmentShader: testFragmentShader4,
+    side: THREE.DoubleSide,
+    uniforms: {
+        uTime: { value: 0 }
+    }
+})
 
 // Mesh
 const planetMesh = new THREE.Mesh(planetGeometry, planetMaterial)
 const planetMesh2 = new THREE.Mesh(planetGeometry, planetMaterial2)
+const planetMesh3 = new THREE.Mesh(planetGeometry, planetMaterial3)
+const planetMesh4 = new THREE.Mesh(planetGeometry, planetMaterial4)
 planetMesh.position.x = -5
 planetMesh.position.y = .5
 planetMesh.position.z = -5
 planetMesh2.position.x = 2
 planetMesh2.position.y = .5
 planetMesh2.position.z = -4
-scene.add(planetMesh, planetMesh2)
+scene.add(planetMesh, planetMesh2, planetMesh3, planetMesh4)
 
 /**
  * Sizes
