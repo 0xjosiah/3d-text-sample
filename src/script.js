@@ -5,6 +5,7 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 import * as dat from 'lil-gui'
 import testFragmentShader from './shaders/planets/oneFragment.glsl'
+import testFragmentShader2 from './shaders/planets/twoFragment.glsl'
 import testVertexShader from './shaders/planets/oneVertex.glsl'
 
 
@@ -128,7 +129,7 @@ fontLoader.load(
 // Geometry
 const planetGeometry = new THREE.SphereGeometry(.5)
 
-// Material
+// Materials
 const planetMaterial = new THREE.ShaderMaterial({
     vertexShader: testVertexShader,
     fragmentShader: testFragmentShader,
@@ -137,10 +138,18 @@ const planetMaterial = new THREE.ShaderMaterial({
         uTime: { value: 0 }
     }
 })
+const planetMaterial2 = new THREE.ShaderMaterial({
+    vertexShader: testVertexShader,
+    fragmentShader: testFragmentShader2,
+    side: THREE.DoubleSide,
+    uniforms: {
+        uTime: { value: 0 }
+    }
+})
 
 // Mesh
 const planetMesh = new THREE.Mesh(planetGeometry, planetMaterial)
-const planetMesh2 = new THREE.Mesh(planetGeometry, planetMaterial)
+const planetMesh2 = new THREE.Mesh(planetGeometry, planetMaterial2)
 planetMesh.position.x = -5
 planetMesh.position.y = .5
 planetMesh.position.z = -5
@@ -208,9 +217,20 @@ const tick = () =>
 
     // Update material
     planetMaterial.uniforms.uTime.value = Math.sin(elapsedTime)
+    planetMaterial2.uniforms.uTime.value = Math.cos(elapsedTime)
 
     // Rotate shapes
     // donut.rotation.x = Math.random() * Math.PI
+    planetMesh.rotation.y = Math.PI * elapsedTime * .05
+    planetMesh.rotation.x = Math.sin(Math.PI * elapsedTime * .05)
+    planetMesh2.rotation.y = Math.PI * elapsedTime * .05
+    planetMesh2.rotation.x = Math.cos(Math.PI * elapsedTime * .05)
+
+    // // Orbit planets
+    // planetMesh.position.x += Math.sin(elapsedTime) * .075
+    // planetMesh.position.z += Math.cos(elapsedTime) * .075
+    // planetMesh2.position.x += Math.cos(elapsedTime) * .075
+    // planetMesh2.position.z += Math.sin(elapsedTime) * .075
 
 
     // Update controls

@@ -57,14 +57,21 @@ float cnoise(vec2 P){
   vec2 fade_xy = fade(Pf.xy);
   vec2 n_x = mix(vec2(n00, n01), vec2(n10, n11), fade_xy.x);
   float n_xy = mix(n_x.x, n_x.y, fade_xy.y);
-  return 2.3 * n_xy  * uTime * sin(uTime);
+  return 2.3 * n_xy  * uTime * cos(uTime);
 }
 
 void main()
 {
-    vec3 blackColor = vec3(.25, 0.0, .25) * 1.0 - uTime * uTime;
-    vec3 uvColor = vec3(1.0, vUv);
-    float strength = step(0.9, sin(cnoise(vUv * 10.0) * 20.0));
+    // Original
+    // vec3 blackColor = vec3(.25, 0.0, .25) * 1.0 - uTime * uTime;
+    // vec3 uvColor = vec3(1.0, vUv);
+    // float strength = step(0.9, sin(cnoise(vUv * 5.0) * 25.0));
+    // vec3 mixedColor = mix(blackColor, uvColor, strength);
+    // gl_FragColor = vec4(mixedColor, 1.0);
+
+    vec3 blackColor = vec3(.25, .6, .25) * 1.0 - uTime * uTime;
+    vec3 uvColor = vec3(.14, vUv);
+    float strength = step(0.9, sin(cnoise(vUv * 5.0) * 25.0));
     vec3 mixedColor = mix(blackColor, uvColor, strength);
     gl_FragColor = vec4(mixedColor, 1.0);
 }
