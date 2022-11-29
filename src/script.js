@@ -142,6 +142,7 @@ const initPlanet = () => {
     scene.add(mesh)
 }
 
+
 /**
  * Sizes
  */
@@ -198,6 +199,9 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
+
+    // Update material
+    material.uniforms.uTime.value = Math.sin(elapsedTime)
 
     // Rotate shapes
     // donut.rotation.x = Math.random() * Math.PI
