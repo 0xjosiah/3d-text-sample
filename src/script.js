@@ -125,25 +125,22 @@ fontLoader.load(
 /**
  * Test planet
  */
-const initPlanet = () => {
-    // Geometry
-    const geometry = new THREE.SphereGeometry(.5)
+// Geometry
+const planetGeometry = new THREE.SphereGeometry(.5)
 
-    // Material
-    const material = new THREE.ShaderMaterial({
-        vertexShader: testVertexShader,
-        fragmentShader: testFragmentShader,
-        side: THREE.DoubleSide,
-        uniforms: {
-            uTime: { value: 0 }
-        }
-    })
+// Material
+const planetMaterial = new THREE.ShaderMaterial({
+    vertexShader: testVertexShader,
+    fragmentShader: testFragmentShader,
+    side: THREE.DoubleSide,
+    uniforms: {
+        uTime: { value: 0 }
+    }
+})
 
-    // Mesh
-    const mesh = new THREE.Mesh(geometry, material)
-    scene.add(mesh)
-}
-initPlanet()
+// Mesh
+const planetMesh = new THREE.Mesh(planetGeometry, planetMaterial)
+scene.add(planetMesh)
 
 /**
  * Sizes
@@ -203,7 +200,7 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // Update material
-    material.uniforms.uTime.value = Math.sin(elapsedTime)
+    planetMaterial.uniforms.uTime.value = Math.sin(elapsedTime)
 
     // Rotate shapes
     // donut.rotation.x = Math.random() * Math.PI
