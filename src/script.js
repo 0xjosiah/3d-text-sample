@@ -173,9 +173,20 @@ const planetMesh4 = new THREE.Mesh(planetGeometry, planetMaterial4)
 planetMesh.position.x = -5
 planetMesh.position.y = .5
 planetMesh.position.z = -5
+
 planetMesh2.position.x = 2
 planetMesh2.position.y = .5
 planetMesh2.position.z = -4
+
+planetMesh3.position.x = -.5
+planetMesh3.position.y = .2
+planetMesh3.position.z = -5
+planetMesh3.scale.set(.5, .5, .5)
+
+planetMesh4.position.x = -4
+planetMesh4.position.y = -.5
+planetMesh4.position.z = .25
+
 scene.add(planetMesh, planetMesh2, planetMesh3, planetMesh4)
 
 /**
@@ -238,6 +249,8 @@ const tick = () =>
     // Update material
     planetMaterial.uniforms.uTime.value = Math.sin(elapsedTime)
     planetMaterial2.uniforms.uTime.value = Math.cos(elapsedTime)
+    planetMaterial3.uniforms.uTime.value = Math.cos(elapsedTime)
+    planetMaterial4.uniforms.uTime.value = Math.cos(elapsedTime)
 
     // Rotate shapes
     // donut.rotation.x = Math.random() * Math.PI
