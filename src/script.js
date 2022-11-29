@@ -121,6 +121,28 @@ fontLoader.load(
 // scene.add(cube)
 
 /**
+ * Test planet
+ */
+const initPlanet = () => {
+    // Geometry
+    const geometry = new THREE.SphereGeometry(.5)
+
+    // Material
+    const material = new THREE.ShaderMaterial({
+        vertexShader: testVertexShader,
+        fragmentShader: testFragmentShader,
+        side: THREE.DoubleSide,
+        uniforms: {
+            uTime: { value: 0 }
+        }
+    })
+
+    // Mesh
+    const mesh = new THREE.Mesh(geometry, material)
+    scene.add(mesh)
+}
+
+/**
  * Sizes
  */
 const sizes = {
