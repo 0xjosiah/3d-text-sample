@@ -84,7 +84,9 @@ fontLoader.load(
         // )
         textGeometry.center()
 
-        const material = new THREE.MeshMatcapMaterial({ matcap: chromeMatcapTexture })
+        // const material = new THREE.MeshMatcapMaterial({ matcap: chromeMatcapTexture })
+        const material = planetMaterial4
+        
         // material.wireframe = true
         const text = new THREE.Mesh(textGeometry, material)
         scene.add(text)
